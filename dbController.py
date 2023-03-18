@@ -1,6 +1,16 @@
+#Imports
 import sqlite3
 
 class dbController():
+    """
+    This class deals with requests to the database.
+
+    Methods
+    -----------
+    __init__ - Creates a connection the the database
+    execute(command) - Executes a given command (String) on the database.
+    commit - Commits any changes to the database.
+    """
 
     def __init__(self):
         #Database connection
@@ -13,4 +23,4 @@ class dbController():
         
 
     def commit(self):
-        self.cur.commit()
+        self.con.commit()
