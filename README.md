@@ -8,8 +8,6 @@ This project has been created to create a program to test and experiment with th
 
 ## To do list:
 
- * Comment exisiting code that has not been.
- * Convert the file into a multi-file system to make it more modular.
  * Create a unittesting file that will be used to test functions to ensure they're working correctly.
  * Improve the accuracy measures that the program returns to the user. (Look at individual words and characters)
  * Change the basic UI to a more functional and more visually pleasing one. 
