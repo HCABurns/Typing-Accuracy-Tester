@@ -1,6 +1,9 @@
+#Imports
 from tkinter import *
 import threading
 import time
+import sys
+from PIL import ImageTk, Image
 
 class UI():
     """
@@ -28,7 +31,7 @@ class UI():
         self.root = Tk()
         self.root.geometry("{}x{}".format(800, 480))
         self.root.title("Typing Speed Calculator")
-        self.root.iconphoto(False, PhotoImage(file='logo.png'))
+        self.root.iconphoto(False, PhotoImage(file='images/icon.png'))
         self.set_UI()
         self.ui = None
 
@@ -91,11 +94,31 @@ class UI():
         """
         self.hide_frames()
         self.root.configure(background='black')
+        bgColour = "black"
 
-        button = Button(self.root,text ="Begin",command = self.set_game)
-        button.pack()
+        #Add logo to the page
+        image1 = Image.open("images/logo.png")
+        logo = ImageTk.PhotoImage(image1)
+        label = Label(image=logo, bg= bgColour, activebackground= bgColour)
+        label.image=logo
+        label.pack(pady=(20, 70))
 
-        button = Button(self.root,text ="Reset",command = self.set_UI)
+        
+        
+        #Button to begin the game
+        image2 = Image.open("images/startButton.png")
+        startButton = ImageTk.PhotoImage(image2)
+        label = Label(image=startButton, bg= bgColour, activebackground= bgColour)
+        label.image=startButton
+        button = Button(self.root,image=startButton,bd = 0,highlightbackground= bgColour, command = self.set_game,bg= bgColour, activebackground= bgColour, borderwidth=0)
+        button.pack(pady=(0, 30))
+
+        #Button to quit the game
+        image3 = Image.open("images/exitButton.png")
+        exitButton = ImageTk.PhotoImage(image3)
+        label = Label(image=exitButton, bg= bgColour, activebackground= bgColour)
+        label.image=exitButton
+        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= bgColour, command = self.close,bg= bgColour, activebackground= bgColour, borderwidth=0)
         button.pack()
 
     def set_game(self):
@@ -144,6 +167,14 @@ class UI():
         This function runs the required mainloop for the window.
         """
         self.root.mainloop()
+
+
+    def close(self):
+        """
+        This function is used to close the window and end the program.
+        """
+        self.root.destroy()
+        sys.exit()
 
 #Code for testing the UI class.
 if __name__ == "__main__":
