@@ -72,8 +72,12 @@ class Game():
         chars = 0
         print(self.phrase)
         #Loop through and check how many chars the user has entered
-        while len(self.ui.inputLabel.cget("text")) < len(self.phrase): #while chars < len(self.phrase) 
-            time.sleep(0.3)
+        while True:
+            try:
+                if len(self.ui.inputLabel.cget("text")) >= len(self.phrase): #while chars < len(self.phrase)
+                    break
+            except:
+                return 0
         #Calculate the accuracy and wpm
         self.answer = self.ui.inputLabel.cget("text")
         self.end_time = time.time()
