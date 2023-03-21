@@ -29,7 +29,9 @@ class UI():
         Creates a window.
         """
         self.root = Tk()
-        self.root.geometry("{}x{}".format(800, 480))
+        self.width = 800
+        self.height = 400
+        self.root.geometry("{}x{}".format(self.width, self.height))
         self.root.title("Typing Speed Calculator")
         self.root.iconphoto(False, PhotoImage(file='images/icon.png'))
         self.set_UI()
@@ -79,14 +81,23 @@ class UI():
         """
         This function will change the countdown and wait 3 seconds before starting the game.
         """
-        time.sleep(1)
-        UI.alter_label(self.countdownLabel,"3")
-        time.sleep(1)
-        UI.alter_label(self.countdownLabel,"2")
-        time.sleep(1)
-        UI.alter_label(self.countdownLabel,"1")
-        time.sleep(1)
-        self.countdownLabel.destroy()
+        try:
+            #Sleep for 1 second to allow for 3 to be on screen.
+            time.sleep(1)
+            #Load nunber 2 for 1 second.
+            image = Image.open("images/2.png")
+            num = ImageTk.PhotoImage(image)
+            self.countdownLabel.config(image = num)
+            time.sleep(1)
+            #Load number 1 for 1 second.
+            image = Image.open("images/1.png")
+            num = ImageTk.PhotoImage(image)
+            self.countdownLabel.config(image = num)
+            time.sleep(1)
+            #Remove the count down label
+            self.countdownLabel.destroy()
+        except:
+            return -1
 
     def set_UI(self):
         """
@@ -102,8 +113,6 @@ class UI():
         label = Label(image=logo, bg= bgColour, activebackground= bgColour)
         label.image=logo
         label.pack(pady=(20, 70))
-
-        
         
         #Button to begin the game
         image2 = Image.open("images/startButton.png")
@@ -127,18 +136,50 @@ class UI():
         """
         from main import playGame
         self.hide_frames()
+        bgColour = "black"
 
-        label = Label(text = "Type Statistics Game")
-        label.pack()
+        #Add logo to the page
+        image1 = Image.open("images/logo.png")
+        logo = ImageTk.PhotoImage(image1)
+        label = Label(image=logo, bg= bgColour, activebackground= bgColour)
+        label.image=logo
+        label.pack(pady=(20, 40))
 
-        button = Button(self.root,text ="Reset",command = self.set_UI)
-        button.pack()
-        self.countdownLabel = Label(text = "3")
-        self.countdownLabel.pack()
+        #Add phrase label
+        self.phraseLabel = Label(text = "", bg = bgColour, fg='#40a8e8', font="Helvetica 14 bold")
+        self.phraseLabel.pack(pady=(0, 20))
+
+        #Add countdown
+        image1 = Image.open("images/3.png")
+        num3 = ImageTk.PhotoImage(image1)
+        self.countdownLabel = Label(image=num3, bg= bgColour, activebackground= bgColour)
+        self.countdownLabel.image=num3
+        self.countdownLabel.pack(pady=(0, 0))
+
+        #Add input label
+        self.inputLabel = Label(text = "", bg = bgColour, fg='#40a8e8', borderwidth = 2)
+        self.inputLabel.pack(pady=(20, 0))
+
+        #Button to quit the game
+        image3 = Image.open("images/returnButton.png")
+        exitButton = ImageTk.PhotoImage(image3)
+        label = Label(image=exitButton, bg= bgColour, activebackground= bgColour)
+        label.image=exitButton
+        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= bgColour, command = self.set_UI,bg= bgColour, activebackground= bgColour, borderwidth=0)
+        button.place(x=self.width/2-(176/2),y=self.height-99)
 
         #Start a new thread to run the game. (Allows for this thread to continue to update the UI)
-        start = threading.Thread(target=playGame,args=[self.ui])
-        start.start()
+        self.thread = threading.Thread(target=playGame,args=[self.ui])
+        self.thread.start()
+
+    def returnButton(self):
+        """
+        This function is to end the game
+        """
+        self.thread.join()
+        self.unbind()
+        self.set_UI()
+    
 
     def set_phraseUI(self,text):
         """
@@ -149,11 +190,11 @@ class UI():
         text : string
             This is the phrase the game chose from the database.
         """
-        label = Label(text = text)
-        label.pack()
+        bgColour = "black"
+        self.phraseLabel.config(text = text)
 
-        self.inputLabel = Label(text = "")
-        self.inputLabel.pack()
+        #self.inputLabel = Label(text = "", bg = bgColour, fg='#40a8e8')
+        #self.inputLabel.pack()
     
     def hide_frames(self):
         """
