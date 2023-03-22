@@ -6,6 +6,10 @@ This is a project to determine the typing speed and accuracy of a user. A UI wil
 
 This project has been created to create a program to test and experiment with the Tkinter package for creating a UI. Additionally, I want to consolidate my knowledge of threading in python so will be adding this functionality.
 
+## Project Extension:
+
+After completing the main goal of this project, I have decided to extend the scope by adding in a score metric. Additionally, a server will be created to allow for retreiving and updating a global database. To go along with this, another scene will need to be created to display the scores and allow for searching and filtering the results.
+
 ## To do list:
 
  * Create a unittesting file that will be used to test functions to ensure they're working correctly.
