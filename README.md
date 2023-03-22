@@ -10,4 +10,3 @@ This project has been created to create a program to test and experiment with th
 
  * Create a unittesting file that will be used to test functions to ensure they're working correctly.
  * Improve the accuracy measures that the program returns to the user. (Look at individual words and characters)
- * Add a screen after the test displaying results.
