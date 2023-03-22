@@ -111,9 +111,9 @@ class Game():
         This function will calculate the accuracy and update the accuracy variable.
         """
         equal = 0
-        for i in range(len(self.answer)):
-            if self.answer[i] == self.phrase[i]:
-                equal += 1
+        for char1,char2 in zip(self.answer,self.phrase):
+            if char1 == char2:
+                equal+=1
         self.accuracy = equal / len(self.phrase) * 100
 
 
