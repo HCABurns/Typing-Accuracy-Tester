@@ -9,4 +9,7 @@ This project has been created to create a program to test and experiment with th
 ## To do list:
 
  * Create a unittesting file that will be used to test functions to ensure they're working correctly.
- * Improve the accuracy measures that the program returns to the user. (Look at individual words and characters)
+ * Provide a score (accuracy * wpm * 1/len(phrase)?)
+ * Have a leaderboard section to show the top _ scores.
+ * Store scores in database (Relational with what phrase it was achieved with - for filtering)
+ * Server and client to retrieve and update scores.
