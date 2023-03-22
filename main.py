@@ -1,6 +1,6 @@
 #Imports
 from Game import Game
-from dbController import dbController
+from DBController import DBController
 import threading
 from UI import UI
 import sys
@@ -8,7 +8,7 @@ import sys
     
 #Open a database connect and make it global
 global db
-db = dbController()
+db = DBController()
 
 def playGame(ui):
     """

@@ -254,7 +254,7 @@ class UI():
         This function is used to close the window and end the program.
         """
         self.root.destroy()
-        sys.exit()
+
 
 #Code for testing the UI class.
 if __name__ == "__main__":
