@@ -176,7 +176,7 @@ class UI():
         self.thread = threading.Thread(target=playGame,args=[self.ui])
         self.thread.start()
 
-    def set_results_UI(self,accuracy,time,wpm,accurate_wpm):
+    def set_results_UI(self,accuracy,time,wpm,accurate_wpm,score):
         """
         This function will set the window to the homescreen UI.
         """
@@ -188,7 +188,7 @@ class UI():
         logo = ImageTk.PhotoImage(image1)
         label = Label(image=logo, bg= bgColour, activebackground= bgColour)
         label.image=logo
-        label.pack(pady=(20, 20))
+        label.pack(pady=(20, 0))
 
         #Add accuracy label
         label = Label(text = f"Completed in {round(time,2)}s with accuracy of: {round(accuracy,2)}%", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
@@ -200,8 +200,12 @@ class UI():
 
         #Add accurate wpm label
         label = Label(text = f"Accurate words per minute (WPM) of: {round(accurate_wpm,2)}", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
-        label.pack(pady=(20, 40))
+        label.pack(pady=(20, 0))
 
+        #Add score label
+        label = Label(text = f"Total Score: {score}", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
+        label.pack(pady=(20, 20))
+        
         #Button to return
         image3 = Image.open("images/returnButton.png")
         exitButton = ImageTk.PhotoImage(image3)

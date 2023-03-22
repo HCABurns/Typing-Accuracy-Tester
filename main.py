@@ -36,7 +36,7 @@ def playGame(ui):
         if len(results) == 0:
             ui.set_UI()
         else:
-            ui.set_results_UI(results[0],results[1],results[2],results[3])
+            ui.set_results_UI(results[0],results[1],results[2],results[3],results[4])
     except:
         return -1
 
