@@ -95,7 +95,9 @@ class UI():
             self.countdownLabel.config(image = num)
             time.sleep(1)
             #Remove the count down label
+            self.returnButton["state"] = NORMAL
             self.countdownLabel.destroy()
+            
         except:
             return -1
 
@@ -146,7 +148,7 @@ class UI():
         label.pack(pady=(20, 40))
 
         #Add phrase label
-        self.phraseLabel = Label(text = "", bg = bgColour, fg='#40a8e8', font="Helvetica 14 bold")
+        self.phraseLabel = Label(text = "", bg = bgColour, fg='#40a8e8', font="Helvetica 14 bold",wraplength=self.width-50)
         self.phraseLabel.pack(pady=(0, 20))
 
         #Add countdown
@@ -160,18 +162,55 @@ class UI():
         self.inputLabel = Label(text = "", bg = bgColour, fg='#40a8e8', borderwidth = 2)
         self.inputLabel.pack(pady=(20, 0))
 
-        #Button to quit the game
+        #Button to return
         image3 = Image.open("images/returnButton.png")
         exitButton = ImageTk.PhotoImage(image3)
         label = Label(image=exitButton, bg= bgColour, activebackground= bgColour)
         label.image=exitButton
-        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= bgColour, command = self.set_UI,bg= bgColour, activebackground= bgColour, borderwidth=0)
-        button.place(x=self.width/2-(176/2),y=self.height-99)
+        self.returnButton = Button(self.root,image=exitButton,bd = 0,highlightbackground= bgColour, command = self.set_UI,bg= bgColour, activebackground= bgColour, borderwidth=0)
+        self.returnButton.place(x=self.width/2-(176/2),y=self.height-99)
+        self.returnButton["state"] = DISABLED
+        
 
         #Start a new thread to run the game. (Allows for this thread to continue to update the UI)
         self.thread = threading.Thread(target=playGame,args=[self.ui])
         self.thread.start()
 
+    def set_results_UI(self,accuracy,time,wpm,accurate_wpm):
+        """
+        This function will set the window to the homescreen UI.
+        """
+        self.hide_frames()
+        bgColour = "black"
+
+        #Add logo to the page
+        image1 = Image.open("images/logo.png")
+        logo = ImageTk.PhotoImage(image1)
+        label = Label(image=logo, bg= bgColour, activebackground= bgColour)
+        label.image=logo
+        label.pack(pady=(20, 20))
+
+        #Add accuracy label
+        label = Label(text = f"Completed in {round(time,2)}s with accuracy of: {round(accuracy,2)}%", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
+        label.pack(pady=(20, 0))
+
+        #Add wpm label
+        label = Label(text = f"Words per minute (WPM) of: {round(wpm,2)}", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
+        label.pack(pady=(20, 0))
+
+        #Add accurate wpm label
+        label = Label(text = f"Accurate words per minute (WPM) of: {round(accurate_wpm,2)}", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
+        label.pack(pady=(20, 40))
+
+        #Button to return
+        image3 = Image.open("images/returnButton.png")
+        exitButton = ImageTk.PhotoImage(image3)
+        label = Label(image=exitButton, bg= bgColour, activebackground= bgColour)
+        label.image=exitButton
+        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= bgColour, command = self.set_UI,bg= bgColour, activebackground= bgColour, borderwidth=0)
+        button.pack()
+
+    
     def returnButton(self):
         """
         This function is to end the game
