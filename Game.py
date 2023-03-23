@@ -35,6 +35,7 @@ class Game():
         self.id = -1
         self.uses = -1
         self.wpm = 0
+        self.score = 0
         self.ui = ui
         self.db = db
         self.set_phrase()
@@ -83,12 +84,14 @@ class Game():
         self.end_time = time.time()
         self.calculate_accuracy()
         self.calculate_wpm()
+        self.calculate_score()
         print("Accuracy: {}% in {}s".format(self.accuracy,self.end_time-self.start_time))
         print("WPM: {}".format(self.wpm))
         print("Accurate WPM: {}".format(self.wpm /100 * self.accuracy))
+        print(f"Score: {self.score}")
         #Update database and return
         self.updateDB()
-        return [self.accuracy,self.end_time-self.start_time, self.wpm, self.wpm /100 * self.accuracy]
+        return [self.accuracy,self.end_time-self.start_time, self.wpm, self.wpm /100 * self.accuracy,self.score]
 
 
     def updateDB(self):
@@ -105,6 +108,14 @@ class Game():
         self.db.execute(command)
         self.db.commit()
 
+
+    def calculate_score(self):
+        """
+        This function will calculate the users score and update the score variable.
+        The score is calculated by: AccurateWPM * Accuracy
+        Using accuracy twice in the equation to promote more score for better accuracy.
+        """
+        self.score = int((self.wpm/100*self.accuracy)**2 * self.accuracy)
         
     def calculate_accuracy(self):
         """

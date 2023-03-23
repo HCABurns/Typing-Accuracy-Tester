@@ -25,18 +25,18 @@ def playGame(ui):
     None
     """
     print(threading.active_count()) 
-    main = Game(ui,db)
-    ui.set_phraseUI(main.phrase)
+    game = Game(ui,db)
+    ui.set_phraseUI(game.phrase)
     ui.start_countdown()
     ui.setBind()
-    results = main.begin()
+    results = game.begin()
     print(results)
     ui.unbind()
     try:
         if len(results) == 0:
             ui.set_UI()
         else:
-            ui.set_results_UI(results[0],results[1],results[2],results[3])
+            ui.set_results_UI(results[0],results[1],results[2],results[3],results[4])
     except:
         return -1
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     ui.mainloop()
     #When the UI is closed, close the database connection.
     #db = dbController()
-    db.cur.close()
+    db.close()
     print("closed")
     sys.exit()
 
