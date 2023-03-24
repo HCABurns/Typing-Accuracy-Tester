@@ -36,6 +36,8 @@ class UI():
         self.root.geometry("{}x{}".format(self.width, self.height))
         self.root.title("Typing Speed Calculator")
         self.root.iconphoto(False, PhotoImage(file='images/icon.png'))
+        self.bgColour = "black"
+        self.root.configure(background=self.bgColour)
         self.set_UI()
         self.ui = None
 
@@ -115,30 +117,36 @@ class UI():
         This function will set the window to the homescreen UI.
         """
         self.hide_frames()
-        self.root.configure(background='black')
-        bgColour = "black"
 
         #Add logo to the page
         image1 = Image.open("images/logo.png")
         logo = ImageTk.PhotoImage(image1)
-        label = Label(image=logo, bg= bgColour, activebackground= bgColour)
+        label = Label(image=logo, bg= self.bgColour, activebackground= self.bgColour)
         label.image=logo
-        label.pack(pady=(20, 70))
+        label.pack(pady=(20, 20))
         
         #Button to begin the game
         image2 = Image.open("images/startButton.png")
         startButton = ImageTk.PhotoImage(image2)
-        label = Label(image=startButton, bg= bgColour, activebackground= bgColour)
+        label = Label(image=startButton, bg= self.bgColour, activebackground= self.bgColour)
         label.image=startButton
-        button = Button(self.root,image=startButton,bd = 0,highlightbackground= bgColour, command = self.set_game,bg= bgColour, activebackground= bgColour, borderwidth=0)
-        button.pack(pady=(0, 30))
+        button = Button(self.root,image=startButton,bd = 0,highlightbackground= self.bgColour, command = self.set_game,bg= self.bgColour, activebackground=self.bgColour, borderwidth=0)
+        button.pack(pady=(0, 15))
+
+        #Button to go to leaderboards
+        image3 = Image.open("images/leaderboardButton.png")
+        exitButton = ImageTk.PhotoImage(image3)
+        label = Label(image=exitButton, bg= self.bgColour, activebackground= self.bgColour)
+        label.image=exitButton
+        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= self.bgColour, command = self.show_leaderboard,bg= self.bgColour, activebackground= self.bgColour, borderwidth=0)
+        button.pack(pady=(0,15))
 
         #Button to quit the game
         image3 = Image.open("images/exitButton.png")
         exitButton = ImageTk.PhotoImage(image3)
-        label = Label(image=exitButton, bg= bgColour, activebackground= bgColour)
+        label = Label(image=exitButton, bg= self.bgColour, activebackground= self.bgColour)
         label.image=exitButton
-        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= bgColour, command = self.close,bg= bgColour, activebackground= bgColour, borderwidth=0)
+        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= self.bgColour, command = self.close,bg= self.bgColour, activebackground= self.bgColour, borderwidth=0)
         button.pack()
 
 
@@ -148,36 +156,35 @@ class UI():
         """
         from main import playGame
         self.hide_frames()
-        bgColour = "black"
 
         #Add logo to the page
         image1 = Image.open("images/logo.png")
         logo = ImageTk.PhotoImage(image1)
-        label = Label(image=logo, bg= bgColour, activebackground= bgColour)
+        label = Label(image=logo, bg= self.bgColour, activebackground=self.bgColour)
         label.image=logo
         label.pack(pady=(20, 40))
 
         #Add phrase label
-        self.phraseLabel = Label(text = "", bg = bgColour, fg='#40a8e8', font="Helvetica 14 bold",wraplength=self.width-50)
+        self.phraseLabel = Label(text = "", bg =self.bgColour, fg='#40a8e8', font="Helvetica 14 bold",wraplength=self.width-50)
         self.phraseLabel.pack(pady=(0, 20))
 
         #Add countdown
         image1 = Image.open("images/3.png")
         num3 = ImageTk.PhotoImage(image1)
-        self.countdownLabel = Label(image=num3, bg= bgColour, activebackground= bgColour)
+        self.countdownLabel = Label(image=num3, bg= self.bgColour, activebackground= self.bgColour)
         self.countdownLabel.image=num3
         self.countdownLabel.pack(pady=(0, 0))
 
         #Add input label
-        self.inputLabel = Label(text = "", bg = bgColour, fg='#40a8e8', borderwidth = 2)
+        self.inputLabel = Label(text = "", bg = self.bgColour, fg='#40a8e8', borderwidth = 2)
         self.inputLabel.pack(pady=(20, 0))
 
         #Button to return
         image3 = Image.open("images/returnButton.png")
         exitButton = ImageTk.PhotoImage(image3)
-        label = Label(image=exitButton, bg= bgColour, activebackground= bgColour)
+        label = Label(image=exitButton, bg= self.bgColour, activebackground= self.bgColour)
         label.image=exitButton
-        self.returnButton = Button(self.root,image=exitButton,bd = 0,highlightbackground= bgColour, command = self.set_UI,bg= bgColour, activebackground= bgColour, borderwidth=0)
+        self.returnButton = Button(self.root,image=exitButton,bd = 0,highlightbackground= self.bgColour, command = self.set_UI,bg=self.bgColour, activebackground= self.bgColour, borderwidth=0)
         self.returnButton.place(x=self.width/2-(176/2),y=self.height-99)
         self.returnButton["state"] = DISABLED
 
@@ -191,51 +198,50 @@ class UI():
         This function will set the window to the homescreen UI.
         """
         self.hide_frames()
-        bgColour = "black"
 
         #Add logo to the page
         image1 = Image.open("images/logo.png")
         logo = ImageTk.PhotoImage(image1)
-        label = Label(image=logo, bg= bgColour, activebackground= bgColour)
+        label = Label(image=logo, bg= self.bgColour, activebackground=self.bgColour)
         label.image=logo
         label.pack(pady=(20, 0))
 
         #Add accuracy label
-        label = Label(text = f"Completed in {round(time,2)}s with accuracy of: {round(accuracy,2)}%", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
+        label = Label(text = f"Completed in {round(time,2)}s with accuracy of: {round(accuracy,2)}%", bg = self.bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
         label.pack(pady=(20, 0))
 
         #Add wpm label
-        label = Label(text = f"Words per minute (WPM) of: {round(wpm,2)}", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
+        label = Label(text = f"Words per minute (WPM) of: {round(wpm,2)}", bg = self.bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
         label.pack(pady=(20, 0))
 
         #Add accurate wpm label
-        label = Label(text = f"Accurate words per minute (WPM) of: {round(accurate_wpm,2)}", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
+        label = Label(text = f"Accurate words per minute (WPM) of: {round(accurate_wpm,2)}", bg = self.bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
         label.pack(pady=(20, 0))
 
         #Add score label
-        label = Label(text = f"Total Score: {score}", bg = bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
+        label = Label(text = f"Total Score: {score}", bg =self.bgColour, fg='#40a8e8', borderwidth = 2, font="Helvetica 14 bold")
         label.pack(pady=(20, 20))
 
-        w = Frame(bg=bgColour)
+        w = Frame(bg=self.bgColour)
         w.pack()
         
         #Button to return
         image3 = Image.open("images/returnButton.png")
         exitButton = ImageTk.PhotoImage(image3)
-        label = Label(image=exitButton, bg= bgColour, activebackground= bgColour)
+        label = Label(image=exitButton, bg= self.bgColour, activebackground= self.bgColour)
         label.image=exitButton
-        button = Button(w,image=exitButton,bd = 0,highlightbackground= bgColour, command = self.set_UI,bg= bgColour, activebackground= bgColour, borderwidth=0)
+        button = Button(w,image=exitButton,bd = 0,highlightbackground= self.bgColour, command = self.set_UI,bg= self.bgColour, activebackground= self.bgColour, borderwidth=0)
         button.grid(row=0,column=2)
 
-        l = Label(w, text = "         ", bg = bgColour)
+        l = Label(w, text = "         ", bg = self.bgColour)
         l.grid(row = 0, column = 1)
 
         #Button to go to leaderboards
         image3 = Image.open("images/leaderboardButton.png")
         exitButton = ImageTk.PhotoImage(image3)
-        label = Label(image=exitButton, bg= bgColour, activebackground= bgColour)
+        label = Label(image=exitButton, bg= self.bgColour, activebackground= self.bgColour)
         label.image=exitButton
-        button = Button(w,image=exitButton,bd = 0,highlightbackground= bgColour, command = lambda: self.set_leaderboard_UI(score),bg= bgColour, activebackground= bgColour, borderwidth=0)
+        button = Button(w,image=exitButton,bd = 0,highlightbackground= self.bgColour, command = lambda: self.set_leaderboard_UI(score),bg= self.bgColour, activebackground= self.bgColour, borderwidth=0)
         button.grid(row=0,column=0)
 
 
@@ -245,38 +251,37 @@ class UI():
         """
 
         self.hide_frames()
-        bgColour = "black"
 
         #Add logo to the page
         image1 = Image.open("images/logo.png")
         logo = ImageTk.PhotoImage(image1)
-        label = Label(image=logo, bg= bgColour, activebackground= bgColour)
+        label = Label(image=logo, bg= self.bgColour, activebackground= self.bgColour)
         label.image=logo
         label.pack(pady=(20, 0))
     
         #Add Name label and entry box
         frame1 = Frame(self.root, bg= "black")
         frame1.pack()
-        label = Label(frame1,text = "Identifier: ", bg = bgColour, fg='#40a8e8', font="Helvetica 20 bold")
+        label = Label(frame1,text = "Identifier: ", bg = self.bgColour, fg='#40a8e8', font="Helvetica 20 bold")
         entry = Entry(frame1, fg='#40a8e8',width=5)
         label.grid(row = 0 , column = 0,sticky="e")
         entry.grid(row = 0 , column = 2)
 
         #Add the score
-        label = Label(frame1,text = f"Score: ", bg = bgColour, fg='#40a8e8', font="Helvetica 20 bold")
+        label = Label(frame1,text = f"Score: ", bg = self.bgColour, fg='#40a8e8', font="Helvetica 20 bold")
         label.grid(row = 1, column = 0,sticky="e")
-        label = Label(frame1,text = f"{score}", bg = bgColour, fg='#40a8e8', font="Helvetica 20 bold")
+        label = Label(frame1,text = f"{score}", bg = self.bgColour, fg='#40a8e8', font="Helvetica 20 bold")
         label.grid(row = 1, column = 2, sticky = "w")
 
         #Error label
-        self.errorLabel = Label(text = "", bg = bgColour, fg='#ff002b', font="Helvetica 14 bold")
+        self.errorLabel = Label(text = "", bg = self.bgColour, fg='#ff002b', font="Helvetica 14 bold")
         self.errorLabel.pack()
         #Button to submit
         image3 = Image.open("images/submitButton.png")
         exitButton = ImageTk.PhotoImage(image3)
-        label = Label(image=exitButton, bg= bgColour, activebackground= bgColour)
+        label = Label(image=exitButton, bg= self.bgColour, activebackground= self.bgColour)
         label.image=exitButton
-        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= bgColour, command = lambda: self.info_checker(entry.get(),score),bg= bgColour, activebackground= bgColour, borderwidth=0)
+        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= self.bgColour, command = lambda: self.info_checker(entry.get(),score),bg= self.bgColour, activebackground= self.bgColour, borderwidth=0)
         button.pack(pady=(20,0))
 
 
@@ -290,6 +295,7 @@ class UI():
             This is the identifier the user has entered to represent them.
         """
         if len(identifier) == 3:
+            identifier = identifier.upper()
             db = DBController()
             print(self.phrase)
             command = f'SELECT id FROM Phrases WHERE phrase="{self.phrase}"'
@@ -301,15 +307,88 @@ class UI():
             print(command)
             db.execute(command)
             db.commit()
-            self.show_leaderboard()
+            self.show_leaderboard(identifier,score)
         else:
             self.errorLabel.config(text = "ERROR: The identifier must be exactly 3 characters long!")
             #messagebox.showerror('Error', 'field must contain 3 characters')
 
 
-    def show_leaderboard(self):
-        pass
-    
+    def show_leaderboard(self,name=None,score=None):
+        """
+        This fuction is used to display a leaderboard of the top X scores.
+
+        Parameter
+        ------------
+        name : str
+            This is the users identifier they entered.
+            Set to None by default as this is relevant for showing the last users score.
+
+        score : str
+            This is the users score they achieved.
+            Set to None by default as this is relevant for showing the last users score.
+
+        """
+        
+        db = DBController()
+        scores = db.getScores()
+        scores.sort(key=lambda x: x[1],reverse=True)
+        print(scores)
+        self.hide_frames()
+        
+        #Add logo to the page
+        image1 = Image.open("images/logo.png")
+        logo = ImageTk.PhotoImage(image1)
+        label = Label(image=logo, bg= self.bgColour, activebackground= self.bgColour)
+        label.image=logo
+        label.pack(pady=(10, 0))
+
+        frame = Frame(self.root, bg = self.bgColour)
+        frame.pack()
+
+        #Add the top X scores
+        for i in range(1,6):
+            positionLabel = Label(frame, text = f"{i}. ", bg = self.bgColour, fg='#40a8e8', font="Helvetica 16 bold")
+            nameLabel = Label(frame, text = scores[i-1][0]  + "  ", bg = self.bgColour, fg='#40a8e8', font="Helvetica 16 bold")
+            scoreLabel = Label(frame, text = scores[i-1][1],bg = self.bgColour, fg='#40a8e8', font="Helvetica 16 bold")
+            spacerLabel = Label(frame, text = "           ",bg = self.bgColour)
+
+            positionLabel.grid(row = i, column = 0)
+            nameLabel.grid(row = i, column = 1)
+            scoreLabel.grid(row = i, column = 2, sticky = "W")
+            spacerLabel.grid(row = i, column = 3)
+
+        #Add the other side of the scoreboard
+        for i in range(6,11):
+            positionLabel = Label(frame, text = f"{i}. ", bg = self.bgColour, fg='#40a8e8', font="Helvetica 16 bold")
+            nameLabel = Label(frame, text = scores[i-1][0]  + "  ", bg = self.bgColour, fg='#40a8e8', font="Helvetica 16 bold")
+            scoreLabel = Label(frame, text = scores[i-1][1],bg = self.bgColour, fg='#40a8e8', font="Helvetica 16 bold")
+
+            positionLabel.grid(row = i-5, column = 4)
+            nameLabel.grid(row = i-5, column = 5)
+            scoreLabel.grid(row = i-5, column = 6, sticky = "W")
+
+
+        #ADd the previous score - If possible
+        if name is not None:
+            for i,nameAndScore in enumerate(scores):
+                if nameAndScore[0]==name and nameAndScore[1] == score:
+                    pos = i+1
+                    break     
+            positionLabel = Label(frame, text = f"{pos}. ", bg = self.bgColour, fg='#40a8e8', font="Helvetica 16 bold")
+            nameLabel = Label(frame, text = name.upper() + "  ", bg = self.bgColour, fg='#40a8e8', font="Helvetica 16 bold")
+            scoreLabel = Label(frame, text = score,bg = self.bgColour, fg='#40a8e8', font="Helvetica 16 bold")
+            spacerLabel.grid(row = 11, column = 3)
+            positionLabel.grid(row = 12, column = 2, sticky= "E")
+            nameLabel.grid(row = 12, column = 3, sticky= "W")
+            scoreLabel.grid(row = 12, column = 4, sticky = "W")
+
+        #Button to return
+        image3 = Image.open("images/returnButton.png")
+        exitButton = ImageTk.PhotoImage(image3)
+        label = Label(image=exitButton, bg= self.bgColour, activebackground= self.bgColour)
+        label.image=exitButton
+        button = Button(self.root,image=exitButton,bd = 0,highlightbackground= self.bgColour, command = self.set_UI,bg= self.bgColour, activebackground= self.bgColour, borderwidth=0)
+        button.pack(pady=(10,0))
     
     def returnButton(self):
         """

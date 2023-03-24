@@ -13,5 +13,4 @@ After completing the main goal of this project, I have decided to extend the sco
 ## To do list:
 
  * Create a unittesting file that will be used to test functions to ensure they're working correctly.
- * Have a leaderboard section to show the top _ scores.
  * Server and client to retrieve and update scores.
