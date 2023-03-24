@@ -1,5 +1,7 @@
 #Imports
 import sqlite3
+import socket
+import re
 
 class DBController():
     """
@@ -41,14 +43,32 @@ class DBController():
         list - List of tuples in the form (name,score)
         """
         if phraseID:
-            command = f'SELECT name,score FROM Scores WHERE phraseID="{phraseID}"'
+            command = f'SELECT name,score FROM Scores WHERE phraseID="{phraseID}";'
         else:
-            command = 'SELECT name,score FROM Scores'
+            command = 'SELECT name,score FROM Scores;'
 
+        #Create a socket object
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        host = socket.gethostname()
+        port = 55555
+        client_socket.connect((host, port))
+        #Send query
+        client_socket.sendall(command.encode('utf-8'))
+
+
+        #Get the response and return it 
+        scores = client_socket.recv(1024).decode('utf-8')
+        
+        x = re.split('[()]', scores)
         scores = []
-        rows = self.execute(command)
-        for row in rows:
-            scores.append((row[0],row[1]))        
+        for pair in x:
+            if len(pair) > 2:
+                split = pair.split(",")
+                print(split)
+                scores.append(("".join([i for i in split[0][1:len(split[0])-1] if i.isalpha()]), int("".join([i for i in split[1] if i.isnumeric()]))))
+                print(("".join([i for i in split[0][1:len(split[0])-1] if i.isalpha()]), int("".join([i for i in split[1] if i.isnumeric()]))))
+        #Close the client socket
+        client_socket.close()       
         return scores
     
 
