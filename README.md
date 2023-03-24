@@ -13,4 +13,3 @@ After completing the main goal of this project, I have decided to extend the sco
 ## To do list:
 
  * Create a unittesting file that will be used to test functions to ensure they're working correctly.
- * Server and client to retrieve and update scores.
