@@ -91,19 +91,19 @@ class UI():
         """
         try:
             #Sleep for 1 second to allow for 3 to be on screen.
-            #time.sleep(1)
+            time.sleep(1)
             
             #Load nunber 2 for 1 second.
             image = Image.open("images/2.png")
             num = ImageTk.PhotoImage(image)
             self.countdownLabel.config(image = num)
-            #time.sleep(1)
+            time.sleep(1)
             
             #Load number 1 for 1 second.
             image = Image.open("images/1.png")
             num = ImageTk.PhotoImage(image)
             self.countdownLabel.config(image = num)
-            #time.sleep(1)
+            time.sleep(1)
             
             #Remove the count down label
             self.returnButton["state"] = NORMAL
